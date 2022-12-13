@@ -1,0 +1,67 @@
+body{
+  background-color: #303030;;
+}
+.text-white{
+  color:white
+}
+
+.card-center
+   {
+    place-content: stretch center;
+    align-items: stretch;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+}
+.my-card{
+  color:white;
+  background-color: #424242;
+  height: auto;
+  min-width: 320px;
+  width: 25%;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding: 16px;
+  border-radius: 4px;
+  font-family: Roboto,Helvetica Neue,sans-serif;
+
+}
+
+.card-shadow{
+  box-shadow: 0 3px 5px -1px #0003,0 6px 10px #00000024,0 1px 18px #0000001f;
+}
+h2{
+    font: 400 24px/32px Roboto,Helvetica Neue,sans-serif;
+    letter-spacing: normal;
+    margin: 0 0 16px;
+}
+
+.mb-xl{
+  margin-bottom:20px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.my-lg{
+  margin-top:20px;
+  margin-bottom:20px;
+}
+.mt-lg{
+  margin-top:20px;
+}
+.my-md{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.px-lg{
+  padding-left: 20px;
+  padding-right:20px;
+}
+.flex-end{
+  display:flex;
+  justify-content: end;
+}
+
