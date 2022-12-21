@@ -211,6 +211,7 @@ const FormCard = () => {
               Login with google
             </Button>
           </div>
+          <p className="class">Not yet customer?</p>
         </div>
       </div>
     </div>
