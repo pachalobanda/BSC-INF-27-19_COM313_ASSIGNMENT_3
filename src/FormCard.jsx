@@ -69,6 +69,7 @@ const FormCard = () => {
     disableButton: true,
   });
   const { showPass, emailErr, disableButton } = formStates;
+  
   var [inputValues, setValues] = useState({
     email: "",
     password: "",
@@ -82,10 +83,9 @@ const FormCard = () => {
 
   const validateForm = () => {
     if (email != "" && password != "") {
-      console.log("haha");
-      changeStatus({ ...formStates, disableButton: false });
+           changeStatus({ ...formStates, disableButton: false });
     } else {
-      console.log("kkk");
+     
       if (!disableButton) {
         changeStatus({ ...formStates, disableButton: true });
       }
@@ -129,8 +129,9 @@ const FormCard = () => {
           margin="normal"
           value={inputValues.email}
           onChange={handleEmailInput}
-          error={false}
-          helperText="Incorrect entry."
+            error={emailErr}
+       
+          helperText={emailErr?"Please provide an email address.":''}
           variant="outlined"
         ></CssTextField>
 
@@ -180,6 +181,14 @@ const FormCard = () => {
           variant="contained"
           className="px-lg"
           disabled={disableButton}
+         sx={{
+            color: "white",
+            backgroundColor: "#546e7a",
+            width: "160px",
+            height: "36px",
+            paddingTop: "0px",
+            paddingBottom: "0px",
+          }}
           onClick={submitForm}
           startIcon={<Login />}
         >
