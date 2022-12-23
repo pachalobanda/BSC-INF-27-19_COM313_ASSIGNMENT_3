@@ -15,7 +15,6 @@ import Google from "./assets/Google";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
 //importing axios for communicating with backend
 import axios from 'axios'
 
@@ -69,7 +68,6 @@ const FormCard = () => {
     disableButton: true,
   });
   const { showPass, emailErr, disableButton } = formStates;
-  
   var [inputValues, setValues] = useState({
     email: "",
     password: "",
@@ -83,9 +81,10 @@ const FormCard = () => {
 
   const validateForm = () => {
     if (email != "" && password != "") {
-           changeStatus({ ...formStates, disableButton: false });
+      console.log("haha");
+      changeStatus({ ...formStates, disableButton: false });
     } else {
-     
+      console.log("kkk");
       if (!disableButton) {
         changeStatus({ ...formStates, disableButton: true });
       }
@@ -129,9 +128,8 @@ const FormCard = () => {
           margin="normal"
           value={inputValues.email}
           onChange={handleEmailInput}
-            error={emailErr}
-       
-          helperText={emailErr?"Please provide an email address.":''}
+          error={false}
+          helperText="Incorrect entry."
           variant="outlined"
         ></CssTextField>
 
@@ -181,14 +179,6 @@ const FormCard = () => {
           variant="contained"
           className="px-lg"
           disabled={disableButton}
-         sx={{
-            color: "white",
-            backgroundColor: "#546e7a",
-            width: "160px",
-            height: "36px",
-            paddingTop: "0px",
-            paddingBottom: "0px",
-          }}
           onClick={submitForm}
           startIcon={<Login />}
         >
@@ -220,7 +210,14 @@ const FormCard = () => {
               Login with google
             </Button>
           </div>
-          <p className="class">Not yet customer?</p>
+          <div className="text-center my-lg">
+            <Button
+            style={{ textTransform: "none" }}
+            color="success"
+            >
+              Not yet customer?
+              </Button>
+              </div>
         </div>
       </div>
     </div>
