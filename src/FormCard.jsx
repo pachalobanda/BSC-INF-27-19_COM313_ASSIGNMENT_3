@@ -16,14 +16,13 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 //importing axios for communicating with backend
-import axios from 'axios'
-
+import axios from "axios";
 
 //overriding mui Textfield component to custome css
 const CssTextField = styled(TextField)({
-    "& input":{
-        color: "#ffffff",
-    },
+  "& input": {
+    color: "#ffffff",
+  },
   "& label": {
     color: "grey",
   },
@@ -33,18 +32,15 @@ const CssTextField = styled(TextField)({
   "& .MuiInput-underline:after": {
     borderBottomColor: "white",
     color: "#ffffff",
-
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       borderWidth: "1px",
       color: "#ffffff",
 
-
       borderColor: "grey",
     },
-    "root":{    color: "#ffffff",
-},
+    root: { color: "#ffffff" },
     "&:hover fieldset": {
       borderWidth: "2px",
       color: "#ffffff",
@@ -54,7 +50,6 @@ const CssTextField = styled(TextField)({
     "&.Mui-focused fieldset": {
       borderColor: "green",
       color: "#ffffff",
-
     },
   },
 });
@@ -67,7 +62,11 @@ const FormCard = () => {
     passErr: false,
     disableButton: true,
   });
+<<<<<<< HEAD
   const { showPass, emailErr, disableButton } = formStates;
+=======
+  const { showPass, emailErr, disableButton, passErr } = formStates;
+>>>>>>> 621348d84a703ec1c9cedb7f6df7070f066e7491
   var [inputValues, setValues] = useState({
     email: "",
     password: "",
@@ -81,10 +80,15 @@ const FormCard = () => {
 
   const validateForm = () => {
     if (email != "" && password != "") {
+<<<<<<< HEAD
       console.log("haha");
       changeStatus({ ...formStates, disableButton: false });
     } else {
       console.log("kkk");
+=======
+      changeStatus({ ...formStates, disableButton: false });
+    } else {
+>>>>>>> 621348d84a703ec1c9cedb7f6df7070f066e7491
       if (!disableButton) {
         changeStatus({ ...formStates, disableButton: true });
       }
@@ -114,9 +118,14 @@ const FormCard = () => {
     // console.log(inputValues.email)
   };
 
+  const handleOnBlur = (evt) => {
+    if (email.length < 0) {
+      changeStatus({ ...formStates, emailErr: true });
+    }
+  };
   const submitForm = async () => {
-   await axios.post('http://localhost:9999/login',inputValues)
- console.log('fff')
+    await axios.post("http://localhost:9999/login", inputValues);
+    console.log("fff");
   };
   return (
     <div className="my-card card-shadow">
@@ -128,75 +137,98 @@ const FormCard = () => {
           margin="normal"
           value={inputValues.email}
           onChange={handleEmailInput}
+<<<<<<< HEAD
           error={false}
           helperText="Incorrect entry."
+=======
+          onBlur={handleOnBlur}
+          error={emailErr}
+          helperText={emailErr ? "Please provide an email address." : ""}
+>>>>>>> 621348d84a703ec1c9cedb7f6df7070f066e7491
           variant="outlined"
         ></CssTextField>
-
-        <CssTextField
-          fullWidth
-          label="password"
-          margin="normal"
-          value={inputValues.password}
-          onChange={handlePasswordInput}
-          variant="outlined"
-          type={showPass ? "password" : "text"}
-          error={false}
-          helperText="Incorrect entry."
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPass ? (
-                    <VisibilityOff
-                      sx={{
-                        color: "#fff",
-                      }}
-                    />
-                  ) : (
-                    <Visibility
-                      sx={{
-                        color: "#fff",
-                      }}
-                    />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        ></CssTextField>
+        <div style={{ marginTop: "10px" }}>
+          <CssTextField
+            fullWidth
+            label="password"
+            margin="normal"
+            value={inputValues.password}
+            onChange={handlePasswordInput}
+            variant="outlined"
+            type={showPass ? "password" : "text"}
+            error={passErr}
+            helperText={passErr ? " Please provide a password." : ""}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPass ? (
+                      <VisibilityOff
+                        sx={{
+                          color: "#fff",
+                        }}
+                      />
+                    ) : (
+                      <Visibility
+                        sx={{
+                          color: "#fff",
+                          fontSize: "20px",
+                        }}
+                      />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          ></CssTextField>
+        </div>
       </div>
       <div className="my-lg">
         <small style={{ color: green[500] }}>Forgot your password ?</small>
       </div>
-      <div className="text-center mt-lg">
-        <Button
+      <div className="flex-center mt-lg">
+        <div>
+           <Button
           variant="contained"
           className="px-lg"
+<<<<<<< HEAD
+=======
+          sx={{
+            color: "white",
+            backgroundColor: "#546e7a",
+            width: "160px",
+            height: "36px",
+            paddingTop: "0px",
+            paddingBottom: "0px",
+          }}
+>>>>>>> 621348d84a703ec1c9cedb7f6df7070f066e7491
           disabled={disableButton}
           onClick={submitForm}
           startIcon={<Login />}
         >
           Log in
-        </Button>
+        </Button>{" "}
+        <div className="">
+          <Checkbox
+            {...rememberMe}
+            sx={{
+              color: grey[300],
+              "&.Mui-checked": {
+                color: green[500],
+              },
+            }}
+          />
+          <span>Remember me</span>
+        </div>
+        </div>
+       
       </div>
-      <div className="text-center">
-        <Checkbox
-          {...rememberMe}
-          sx={{
-            color: grey[300],
-            "&.Mui-checked": {
-              color: green[500],
-            },
-          }}
-        />
-        <span>Remember me</span>
-      </div>
+
       <div>
         <div className="my-lg">
           <Divider>or</Divider>
@@ -210,6 +242,7 @@ const FormCard = () => {
               Login with google
             </Button>
           </div>
+<<<<<<< HEAD
           <div className="text-center my-lg">
             <Button
             style={{ textTransform: "none" }}
@@ -218,6 +251,11 @@ const FormCard = () => {
               Not yet customer?
               </Button>
               </div>
+=======
+        </div>
+        <div className="text-center">
+          <small style={{ color: green[500] }}>Not yet a customer?</small>
+>>>>>>> 621348d84a703ec1c9cedb7f6df7070f066e7491
         </div>
       </div>
     </div>
