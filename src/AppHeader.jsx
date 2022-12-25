@@ -6,15 +6,19 @@ import Search from "@mui/icons-material/Search";
 import Language from "@mui/icons-material/Language";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
-//import image logo
+import useMediaQuery from "@mui/material/useMediaQuery"
+import {useTheme} from "@mui/material/styles"
+
+///import image logo
 import logo from "./assets/JuiceShop_Logo.png";
 //defining header component
 export default function HeaderCOmponent() {
   //  const [count, setCount] = React.useState(0);
-
+const theme  = useTheme()
+const gtMd = useMediaQuery(theme.breakpoints.up('md'))
   return (
     <div>
-      <AppBar position="absolute" style={{ backgroundColor: "#546e7a" }}>
+      <AppBar  style={{ backgroundColor: "#546e7a" }}>
         <Toolbar>
           <Button
             size="large"
@@ -44,8 +48,9 @@ export default function HeaderCOmponent() {
             <Button color="inherit">
               <Search />
             </Button>{" "}
-            <Button
+            <Button 
               color="inherit"
+              style={{display: gtMd ? '':'none'}}
               sx={{
                 textTransform: "none",
               }}
@@ -54,7 +59,7 @@ export default function HeaderCOmponent() {
               Account
             </Button>{" "}
             <Button color="inherit" startIcon={<Language />}>
-              EN
+            {gtMd ? 'EN':''} 
             </Button>
           </div>
         </Toolbar>
