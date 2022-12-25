@@ -1,71 +1,249 @@
+import {
+  Button,
+  Checkbox,
+  TextField,
+  Divider,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import { alpha, styled, createTheme } from "@mui/material/styles";
+import { grey, green } from "@mui/material/colors";
 
-//importing mui components from mui library
-import { AppBar, Toolbar, Button, Grid, IconButton } from "@mui/material";
-//import search , language and account circle icon
-import Search from "@mui/icons-material/Search";
-import Language from "@mui/icons-material/Language";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MenuIcon from "@mui/icons-material/Menu";
-import useMediaQuery from "@mui/material/useMediaQuery"
-import {useTheme} from "@mui/material/styles"
+import Login from "@mui/icons-material/Login";
+import Google from "./assets/Google";
 
-///import image logo
-import logo from "./assets/JuiceShop_Logo.png";
-//defining header component
-export default function HeaderCOmponent() {
-  //  const [count, setCount] = React.useState(0);
-const theme  = useTheme()
-const gtMd = useMediaQuery(theme.breakpoints.up('md'))
+import { useState } from "react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+//importing axios for communicating with backend
+import axios from "axios";
+
+//overriding mui Textfield component to custome css
+const CssTextField = styled(TextField)({
+  "& input": {
+    color: "#ffffff",
+  },
+  "& label": {
+    color: "#e0e0e0",
+  },
+  "& label.Mui-focused": {
+    color: "#ffffff",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "white",
+    color: "#ffffff",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderWidth: "1px",
+      color: "#ffffff",
+
+      borderColor: "grey",
+    },
+    root: { color: "#ffffff" },
+    "&:hover fieldset": {
+      borderWidth: "2px",
+      color: "#ffffff",
+
+      borderColor: "white",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "green",
+      color: "#ffffff",
+    },
+  },
+});
+
+const FormCard = () => {
+  const rememberMe = false;
+  var [formStates, changeStatus] = useState({
+    showPass: false,
+    emailErr: false,
+    passErr: false,
+    disableButton: true,
+  });
+  const { showPass, emailErr, disableButton, passErr } = formStates;
+  var [inputValues, setValues] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = inputValues;
+
+  const handleClickShowPassword = () => {
+    const { showPass } = formStates;
+    changeStatus({ ...formStates, showPass: !showPass });
+  };
+
+  const validateForm = () => {
+    if (email != "" && password != "") {
+      changeStatus({ ...formStates, disableButton: false });
+    } else {
+      if (!disableButton) {
+        changeStatus({ ...formStates, disableButton: true });
+      }
+    }
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleEmailInput = (event) => {
+    validateForm();
+
+    const { email } = inputValues;
+    const char = event.target.value;
+    setValues({ ...inputValues, email: char });
+
+    // console.log(inputValues.email)
+  };
+  const handlePasswordInput = (event) => {
+    validateForm();
+    const { password } = inputValues;
+
+    const char = event.target.value;
+    setValues({ ...inputValues, password: char });
+
+    // console.log(inputValues.email)
+  };
+
+  const handleOnBlur = (evt) => {
+    if (email.length < 0) {
+      changeStatus({ ...formStates, emailErr: true });
+    }
+  };
+  const submitForm = async () => {
+    await axios.post("http://localhost:9999/login", inputValues);
+    console.log("fff");
+  };
   return (
-    <div>
-      <AppBar  style={{ backgroundColor: "#546e7a" }}>
-        <Toolbar>
-          <Button
-            size="large"
-            color="inherit"
-            aria-label="menu"
-           
-          >
-            <MenuIcon />
-          </Button>
+    <div className="my-card card-shadow">
+      <h2>Login</h2>
+      <div>
+        <CssTextField
+          fullWidth
+          label="email*"
+          margin="normal"
+          value={inputValues.email}
+          onChange={handleEmailInput}
+          onBlur={handleOnBlur}
+          error={emailErr}
+          helperText={emailErr ? "Please provide an email address." : ""}
+          variant="outlined"
+        ></CssTextField>
+        <div style={{ marginTop: "10px" }}>
+          <CssTextField
+            fullWidth
+            label="password"
+            margin="normal"
+            value={inputValues.password}
+            onChange={handlePasswordInput}
+            variant="outlined"
+            type={showPass ? "password" : "text"}
+            error={passErr}
+            helperText={passErr ? " Please provide a password." : ""}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPass ? (
+                      <VisibilityOff
+                        sx={{
+                          color: "#fff",
+                        }}
+                      />
+                    ) : (
+                      <Visibility
+                        sx={{
+                          color: "#fff",
+                          fontSize: "20px",
+                        }}
+                      />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          ></CssTextField>
+        </div>
+      </div>
+      <div className="my-lg">
+        <small style={{ color: green[500] }}>Forgot your password ?</small>
+      </div>
+      <div className="flex-center mt-lg">
+        <div>
+           <Button
+          variant="contained"
+          className="px-lg"
+          sx={{
+            color: "white",
+            backgroundColor: "#546e7a",
+            width: "160px",
+            height: "36px",
+            paddingTop: "0px",
+            paddingBottom: "0px",
+          }}
+          disabled={disableButton}
+          onClick={submitForm}
+          startIcon={<Login />}
+        >
+          Log in
+        </Button>{" "}
+        <div className="">
+          <Checkbox
+            {...rememberMe}
+            sx={{
+              color: grey[300],
+              "&.Mui-checked": {
+                color: green[500],
+              },
+            }}
+          />
+          <span>Remember me</span>
+        </div>
+        </div>
+       
+      </div>
 
-          <Grid component="div" sx={{ flexGrow: 1 }}>
-            <Button color="primary">
-              <img
-                src={logo}
-                alt="icon"
-                style={{ width: "50px", height: "100%" }}
-              />
-              <span
-                style={{ fontSize: "24px", color: "white", marginLeft: "5px" }}
-              >
-                {" "}
-                OWASP Juice Shop{" "}
-              </span>
-            </Button>
-          </Grid>
-          <div className="flex-end">
-            <Button color="inherit">
-              <Search />
-            </Button>{" "}
-            <Button 
-              color="inherit"
-              style={{display: gtMd ? '':'none'}}
-              sx={{
-                textTransform: "none",
-              }}
-              startIcon={<AccountCircle />}
+      <div>
+        <div className="my-lg">
+          <Divider  sx={{
+    "&::before, &::after": {
+      borderColor: "#e0e0e0",
+    },
+    borderBottomWidth: 2
+  }}     light={true}
+>or</Divider>
+          <div className="text-center my-lg" >
+            <Button
+              style={{ textTransform: "none" }}
+              variant="contained"
+              startIcon={<Google />}
+              color="success"
+              sx={
+                {
+                  paddingLeft:'20px',
+                  paddingRight:'20px'
+                  
+                }
+              }
             >
-              Account
-            </Button>{" "}
-            <Button color="inherit" startIcon={<Language />}>
-            {gtMd ? 'EN':''} 
+              Login with google
             </Button>
           </div>
-        </Toolbar>
-      </AppBar>
-
-     
+        </div>
+        <div className="text-center" style={{marginTop:'50px'}}>
+          <small style={{ color: green[500] }}>Not yet a customer?</small>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default FormCard;
