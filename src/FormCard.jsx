@@ -213,8 +213,14 @@ const FormCard = () => {
 
       <div>
         <div className="my-lg">
-          <Divider>or</Divider>
-          <div className="text-center my-lg">
+          <Divider  sx={{
+    "&::before, &::after": {
+      borderColor: "#e0e0e0",
+    },
+    borderBottomWidth: 2
+  }}     light={true}
+>or</Divider>
+          <div className="text-center my-lg" >
             <Button
               style={{ textTransform: "none" }}
               variant="contained"
@@ -224,6 +230,7 @@ const FormCard = () => {
                 {
                   paddingLeft:'20px',
                   paddingRight:'20px'
+                  
                 }
               }
             >
@@ -231,7 +238,7 @@ const FormCard = () => {
             </Button>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center" style={{marginTop:'50px'}}>
           <small style={{ color: green[500] }}>Not yet a customer?</small>
         </div>
       </div>
