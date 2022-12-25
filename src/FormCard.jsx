@@ -24,7 +24,7 @@ const CssTextField = styled(TextField)({
     color: "#ffffff",
   },
   "& label": {
-    color: "grey",
+    color: "#e0e0e0",
   },
   "& label.Mui-focused": {
     color: "#ffffff",
@@ -238,6 +238,12 @@ const FormCard = () => {
               variant="contained"
               startIcon={<Google />}
               color="success"
+              sx={
+                {
+                  paddingLeft:'20px',
+                  paddingRight:'20px'
+                }
+              }
             >
               Login with google
             </Button>

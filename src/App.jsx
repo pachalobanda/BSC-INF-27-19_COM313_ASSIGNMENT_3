@@ -14,7 +14,7 @@ function App() {
     <div>
       <Header/>
 
-      <div style={{ marginTop: "10%" }} className="card-center">
+      <div style={{ marginTop: "8%" }} className="card-center">
         <FormCard />
       </div>
     </div>
