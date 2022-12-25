@@ -17,7 +17,7 @@ export default function HeaderCOmponent() {
 const theme  = useTheme()
 const gtMd = useMediaQuery(theme.breakpoints.up('md'))
   return (
-    <div>
+      <div>
       <AppBar  style={{ backgroundColor: "#546e7a" }}>
         <Toolbar>
           <Button
@@ -25,7 +25,7 @@ const gtMd = useMediaQuery(theme.breakpoints.up('md'))
             color="inherit"
             aria-label="menu"
            
-          >
+                  >
             <MenuIcon />
           </Button>
 
@@ -35,7 +35,7 @@ const gtMd = useMediaQuery(theme.breakpoints.up('md'))
                 src={logo}
                 alt="icon"
                 style={{ width: "50px", height: "100%" }}
-              />
+                      />
               <span
                 style={{ fontSize: "24px", color: "white", marginLeft: "5px" }}
               >
@@ -48,24 +48,24 @@ const gtMd = useMediaQuery(theme.breakpoints.up('md'))
             <Button color="inherit">
               <Search />
             </Button>{" "}
-            <Button 
+           <Button
               color="inherit"
               style={{display: gtMd ? '':'none'}}
-              sx={{
+          sx={{
                 textTransform: "none",
-              }}
+          }}
               startIcon={<AccountCircle />}
-            >
+        >
               Account
-            </Button>{" "}
+        </Button>{" "}
             <Button color="inherit" startIcon={<Language />}>
             {gtMd ? 'EN':''} 
             </Button>
-          </div>
+        </div>
         </Toolbar>
       </AppBar>
-
-     
+       
+                  
     </div>
   );
 }
